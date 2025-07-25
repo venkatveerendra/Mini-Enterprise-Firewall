@@ -1,0 +1,19 @@
+# Firewall Rule Set Example
+
+1. Allow Internal Network to Access Internet
+   - Source: 192.168.1.0/24
+   - Destination: Any
+   - Port: 80, 443
+   - Action: Allow
+
+2. Deny External Access to Internal Server
+   - Source: Any
+   - Destination: 192.168.1.100
+   - Port: All
+   - Action: Deny
+
+3. Allow Admin SSH to Firewall
+   - Source: 192.168.1.50
+   - Destination: Firewall_IP
+   - Port: 22
+   - Action: Allow
