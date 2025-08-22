@@ -1,0 +1,22 @@
+# Mini-Enterprise Firewall Setup - Palo Alto CLI Config
+# Author: Ch Veerendra
+
+# Rule 1: Allow HTTP/HTTPS from Internet to DMZ (Web Server)
+set rulebase security rules "Allow-Web" from "Internet" to "DMZ" application [ web-browsing ssl ] action allow
+
+# Rule 2: Allow Web Server → Database (MySQL 3306)
+set rulebase security rules "Allow-DB" from "DMZ" to "Database" application mysql action allow
+
+# Rule 3: Allow Admin LAN → Firewall (SSH 22)
+set rulebase security rules "Allow-Admin" from "Admin" to "Firewall" application ssh action allow
+
+# Rule 4: Default Deny All Other Traffic
+set rulebase security rules "Default-Deny" action deny
+
+# Optional Logging for All Rules
+set rulebase security rules "Allow-Web" log-start yes log-end yes
+set rulebase security rules "Allow-DB" log-start yes log-end yes
+set rulebase security rules "Allow-Admin" log-start yes log-end yes
+set rulebase security rules "Default-Deny" log-start yes log-end yes
+
+echo "Palo Alto firewall rules configured successfully!"
